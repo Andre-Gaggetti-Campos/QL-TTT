@@ -1,31 +1,19 @@
+import sys
+
 def generateBoard(size, state):
     counterMain = 0
-    counterExample = 1
     print("\n")
     for i in range(size):
 
-        print("____"*size, end="_")
-
-        print("    "+"____"*size, end="_\n")
-
-        print("|   "*size, end="|")
-
-        print("    "+"|   "*size, end="|\n")
+        print("____"*size, end="_\n")
+        print("|   "*size, end="|\n")
 
         for j in range(size):
             print("| " + state[counterMain] + " ", end="")
             counterMain += 1
-        print("|", end="")
-
-        print("    ", end="")
-        for j in range(size):
-            print("| " + str(counterExample%10) + " ", end="")
-            counterExample += 1
         print("|", end="\n")
 
-    print("____"*size, end="_")
-
-    print("    "+"____"*size, end="_\n")
+    print("____"*size, end="_\n")
 
 def checkBoardState(size, state):
 
@@ -71,22 +59,8 @@ def checkBoardState(size, state):
         return "Draw"
 
     return "Undeclared"
-        
-testing_state_3x3 = [
-    "X", "O", "X",
-    " ", "X", "O",
-    "O", " ", "X"
-]
 
-testing_state_5x5 = [
-    "X", "O", "X", " ", "O",
-    " ", "X", "O", "X", " ",
-    "O", " ", "X", "O", "X",
-    "X", "O", " ", "X", " ",
-    "O", "X", "O", " ", "X"
-]
-
-def soloplay():
+def soloPlay():
     print("\nBoard size?")
     print("1. 3x3")
     print("2. 5x5")
@@ -95,31 +69,56 @@ def soloplay():
         size = 3 if size_choice == "1" else 5
         state = [" "]*(size*size)
         generateBoard(size, state)
+    else:
+        print("Exiting...")
+        if size_choice == "Exit": sys.exit()
 
     turn = "X"
 
     while True:
-        print(f"\nPlayer {turn}'s turn. Enter position (1-{size*size}):")
-        pos = input("> ")
-        if pos.isdigit():
-            pos = int(pos) - 1
-            if 0 <= pos < size*size and state[pos] == " ":
-                print(f"Player {turn} chose position {pos + 1}.")
+        print(f"\nPlayer {turn}'s turn. Enter position 1,1 to {int(size)},{int(size)}:")
+        input_pos = input("> ")
+
+        if input_pos == "Exit": 
+            print("Exiting...")
+            sys.exit()
+
+        pos_split = input_pos.split(",")
+
+        if len(pos_split) != 2:
+            print("Please enter position in the format row,column (e.g., 1,1).")
+            continue
+
+        row, col = pos_split
+
+        try:
+            row = int(row) - 1
+            col = int(col) - 1
+        except ValueError:
+            print("Row and Column must be numbers. Try again.")
+            continue
+
+        if not (0 <= row < size and 0 <= col < size):
+            print("Position out of bounds. Try again.")
+            continue
+
+        pos = col * size + row
+
+        if state[pos] == " ":
             
-                state[pos] = turn
-                generateBoard(size, state)
+            state[pos] = turn
+            generateBoard(size, state)
 
-                outcome = checkBoardState(size, state)
-                if outcome == "Win":
-                    print(f"\nPlayer {turn} has won.")
-                    break
+            outcome = checkBoardState(size, state)
 
-                if outcome == "Draw":
-                    print("\nThe game is a draw.")
-                    break
+            if outcome == "Win":
+                print(f"\nPlayer {turn} has won.")
+                break
 
-                turn = "O" if turn == "X" else "X"
-            else:
-                print("Invalid position. Try again.")
+            if outcome == "Draw":
+                print("\nThe game is a draw.")
+                break
+
+            turn = "O" if turn == "X" else "X"
         else:
-            print("Please enter a valid number.")
+            print("Invalid position. Try again.")

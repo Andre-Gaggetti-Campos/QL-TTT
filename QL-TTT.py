@@ -1,4 +1,5 @@
 import tictactoe as ttt
+import sys
 
 def main():
     print("\n=== Welcome to Q-Learning Tic Tac Toe! ===")
@@ -9,11 +10,15 @@ def main():
         print("2. Play vs Bot")
         print("3. Bot vs Bot")
         print("4. Train/View Bots")
-        print("5. Exit")
+        print("Type 'Exit' to leave at any point")
+
         choice = input("> ")
 
         if choice == "1":
-            ttt.soloplay()
+            ttt.soloPlay()
+        if choice == "Exit":
+            print("Exiting...")
+            sys.exit()
         
 if __name__ == "__main__":
     main()
