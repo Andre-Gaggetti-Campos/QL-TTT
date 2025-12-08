@@ -2,9 +2,11 @@ import tictactoe as ttt
 import sys
 
 def main():
+
     print("\n=== Welcome to Q-Learning Tic Tac Toe! ===")
 
     while True:
+
         print("\nMenu:")
         print("1. Solo Play")
         print("2. Play vs Bot")
@@ -16,6 +18,7 @@ def main():
 
         if choice == "1":
             ttt.soloPlay()
+            
         if choice == "Exit":
             print("Exiting...")
             sys.exit()

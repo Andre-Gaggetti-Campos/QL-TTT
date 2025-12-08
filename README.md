@@ -1,6 +1,6 @@
 # QL-TTT
 
-Q-Learning-TicTacToe (or QL-TTT) is an inline CLI program where users can train bots with customizable conditions, pitch the bots against eachother, play against a bot, or play by themselves, all in a 3x3 or unique 5x5 TicTacToe environment.
+Q-Learning-TicTacToe (or QL-TTT) is an inline CLI program where users can train bots with customizable conditions, pitch the bots against eachother, play against a bot, or play by themselves, all in any sized square TicTacToe environment.
 
 ## Roadmap
 

@@ -1,8 +1,10 @@
 import sys
 
 def generateBoard(size, state):
+
     counterMain = 0
     print("\n")
+
     for i in range(size):
 
         print("____"*size, end="_\n")
@@ -11,71 +13,78 @@ def generateBoard(size, state):
         for j in range(size):
             print("| " + state[counterMain] + " ", end="")
             counterMain += 1
+
         print("|", end="\n")
 
     print("____"*size, end="_\n")
 
 def checkBoardState(size, state):
 
-    # Horizontal Checks
+    win_len = 3 if size == 3 else 4 if size == 5 else size
+
+    # Horizontal
     for row in range(size):
-        counter = 1
-        for col in range(1, size):
-            curr = state[row*size + col]
-            prev = state[row*size + col - 1]
+        for col in range(size - win_len + 1):
+            segment = state[row*size + col : row*size + col + win_len]
+            if segment[0] != " " and all(c == segment[0] for c in segment):
+                return "Win"
 
-            if curr != " " and curr == prev:
-                counter += 1
-                if counter == 3:
-                    return "Win"
-            else:
-                counter = 1
-
-    # Vertical Checks
+    # Vertical
     for col in range(size):
-        counter = 1
-        for row in range(1, size):
-            curr = state[row*size + col]
-            prev = state[(row-1)*size + col]
-
-            if curr != " " and curr == prev:
-                counter += 1
-                if counter == 3:
-                    return "Win"
-            else:
-                counter = 1
-
-    # Diagonal Checks
-    for row in range(1, size - 1):
-        for col in range(1, size - 1):
-            curr = state[row*size + col]
-            if curr != " " and curr == state[(row-1)*size + (col-1)] and curr == state[(row+1)*size + (col+1)]:
+        for row in range(size - win_len + 1):
+            segment = [state[(row+i)*size + col] for i in range(win_len)]
+            if segment[0] != " " and all(c == segment[0] for c in segment):
                 return "Win"
-            if curr != " " and curr == state[(row-1)*size + (col+1)] and curr == state[(row+1)*size + (col-1)]:
+
+    # Diagonal
+    for row in range(size - win_len + 1):
+        for col in range(size - win_len + 1):
+            segment = [state[(row+i)*size + (col+i)] for i in range(win_len)]
+            if segment[0] != " " and all(c == segment[0] for c in segment):
                 return "Win"
-            
-    # Check for Draw
+
+    # Anti-diagonal
+    for row in range(size - win_len + 1):
+        for col in range(win_len - 1, size):
+            segment = [state[(row+i)*size + (col-i)] for i in range(win_len)]
+            if segment[0] != " " and all(c == segment[0] for c in segment):
+                return "Win"
+
     if " " not in state:
         return "Draw"
 
     return "Undeclared"
 
 def soloPlay():
-    print("\nBoard size?")
-    print("1. 3x3")
-    print("2. 5x5")
-    size_choice = input("> ")
-    if size_choice == "1" or size_choice == "2":
-        size = 3 if size_choice == "1" else 5
-        state = [" "]*(size*size)
-        generateBoard(size, state)
-    else:
-        print("Exiting...")
-        if size_choice == "Exit": sys.exit()
+    
+    while True:
+
+        print("\nBoard side length? (Note 5x5 will have 4 in a row to win, otherwise NxN will have n in a row to win)")
+
+        size_choice = input("> ")
+
+        if size_choice == "Exit": 
+            print("Exiting...")
+            sys.exit()
+
+        try:
+            size = int(size_choice)
+        except ValueError:
+            print("Side length must be a number.")
+            continue
+
+        if size > 2:
+            break
+        else:
+            print("Side length must be greater than 2. Try again.")
+
+    state = [" "]*(size*size)
+    generateBoard(size, state)
 
     turn = "X"
 
     while True:
+        
         print(f"\nPlayer {turn}'s turn. Enter position 1,1 to {int(size)},{int(size)}:")
         input_pos = input("> ")
 
