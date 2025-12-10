@@ -1,4 +1,5 @@
 import tictactoe as ttt
+import botmanager as bm
 import sys
 
 def main():
@@ -18,10 +19,15 @@ def main():
 
         if choice == "1":
             ttt.soloPlay()
-            
+        elif choice == "2":
+            bm.playVersusBot()
+        elif choice == "3":
+            bm.botVsBot()
+        elif choice == "4":
+            bm.trainBots()
         if choice == "Exit":
             print("Exiting...")
             sys.exit()
-        
+
 if __name__ == "__main__":
     main()
