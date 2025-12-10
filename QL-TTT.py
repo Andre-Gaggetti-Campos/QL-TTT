@@ -20,11 +20,11 @@ def main():
         if choice == "1":
             ttt.soloPlay()
         elif choice == "2":
-            bm.playVersusBot()
+            bm.playVsBotDialogue()
         elif choice == "3":
-            bm.botVsBot()
+            bm.botVsBotDialogue()
         elif choice == "4":
-            bm.trainBots()
+            bm.manageBots()
         if choice == "Exit":
             print("Exiting...")
             sys.exit()

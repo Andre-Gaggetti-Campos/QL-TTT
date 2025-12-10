@@ -22,28 +22,24 @@ def checkBoardState(size, state):
 
     win_len = 3 if size == 3 else 4 if size == 5 else size
 
-    # Horizontal
     for row in range(size):
         for col in range(size - win_len + 1):
             segment = state[row*size + col : row*size + col + win_len]
             if segment[0] != " " and all(c == segment[0] for c in segment):
                 return "Win"
 
-    # Vertical
     for col in range(size):
         for row in range(size - win_len + 1):
             segment = [state[(row+i)*size + col] for i in range(win_len)]
             if segment[0] != " " and all(c == segment[0] for c in segment):
                 return "Win"
 
-    # Diagonal
     for row in range(size - win_len + 1):
         for col in range(size - win_len + 1):
             segment = [state[(row+i)*size + (col+i)] for i in range(win_len)]
             if segment[0] != " " and all(c == segment[0] for c in segment):
                 return "Win"
 
-    # Anti-diagonal
     for row in range(size - win_len + 1):
         for col in range(win_len - 1, size):
             segment = [state[(row+i)*size + (col-i)] for i in range(win_len)]
@@ -85,7 +81,7 @@ def soloPlay():
 
     while True:
         
-        print(f"\nPlayer {turn}'s turn. Enter position 1,1 to {int(size)},{int(size)}:")
+        print(f"\nPlayer {turn}'s turn. Enter position row,column (e.g., 1,1 to {int(size)},{int(size)}):")
         input_pos = input("> ")
 
         if input_pos == "Exit": 
@@ -111,7 +107,7 @@ def soloPlay():
             print("Position out of bounds. Try again.")
             continue
 
-        pos = col * size + row
+        pos = row * size + col
 
         if state[pos] == " ":
             
