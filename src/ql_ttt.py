@@ -1,6 +1,8 @@
-import tictactoe as ttt
-import botmanager as bm
+from . import tictactoe as ttt
+from . import botmanager as bm
 import sys
+from tqdm import tqdm
+
 
 def main():
 

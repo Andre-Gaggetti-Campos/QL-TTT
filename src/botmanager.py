@@ -3,9 +3,22 @@ import sys
 import json
 import random
 from tqdm import tqdm
-from tictactoe import checkBoardState, generateBoard
+from .tictactoe import checkBoardState, generateBoard
 
-botDirectory = "bots"
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
+
+def get_executable_dir():
+    if getattr(sys, 'frozen', False):
+        return os.path.dirname(sys.executable)
+    return os.path.dirname(os.path.abspath(__file__))
+
+botDirectory = os.path.join(get_executable_dir(), "bots")
 os.makedirs(botDirectory, exist_ok=True)
 
 class QBot:

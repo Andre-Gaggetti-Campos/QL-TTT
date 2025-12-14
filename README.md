@@ -8,8 +8,8 @@ Q-Learning-TicTacToe (or QL-TTT) is an inline CLI program where users can train 
 2. ~~Implement base interface.~~
 3. ~~Allow computer-based play (random).~~
 4. ~~Implement base Q-Learning schematic.~~
-5. Bug fixes.
-6. Compile project into a universal executable.
+5. ~~Bug fixes.~~
+6. ~~Compile project into a universal executable.~~
 
 ## License
 
