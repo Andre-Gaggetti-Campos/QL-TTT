@@ -16,7 +16,7 @@ Q-Learning-TicTacToe (or QL-TTT) is an inline CLI program where users can train 
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/YourUsername/QL-TTT.git
+git clone https://github.com/Andre-Gaggetti-Campos/QL-TTT.git
 cd QL-TTT
 ```
 
